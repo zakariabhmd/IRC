@@ -1,21 +1,30 @@
-NAME = irc
 CC = c++
-CPPFLAGS = -Wall -Wextra -Werror -std=c++98
-SRC = nick.cpp pass.cpp user.cpp
 
-SRCH = channel.hpp
+CPPFLAGS = -Wall -Wextra -Werror -std=c++98 #-fsanitize=address -g
+
+SRC = main.cpp server.cpp server_infos.cpp Channel.cpp Client.cpp  Channel_cmds.cpp 
 
 OBJ = $(SRC:.cpp=.o)
 
+NAME = ft_irc
+
+.SILENT:
+
 all: $(NAME)
 
-$(NAME): $(OBJ) $(SRCH)
+$(NAME): $(OBJ)
+			printf "\033[32mcompiling...\033[0m\n"
 	$(CC) $(CPPFLAGS) $(OBJ) -o $(NAME)
+			printf "\033[32mDONE\033[0m\n"
 
 clean:
-	@rm -rf $(OBJ)
+	rm -f $(OBJ)
+		printf "\033[31mcleaning...\033[0m\n"
 
 fclean: clean
-	@rm -rf $(NAME)
+	rm -f $(NAME)
 
-re: fclean $(NAME)
+
+re: fclean all
+
+.PHONY: re fclean clean 
